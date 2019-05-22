@@ -1,5 +1,6 @@
 package com.example.myapplication3;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -156,4 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), RightLeftActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

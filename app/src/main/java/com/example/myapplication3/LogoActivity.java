@@ -16,7 +16,7 @@ public class LogoActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RightLeftActivity.class);
                 startActivity(intent);
                 finish();
             }
