@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
-        android:drawableBottom="@drawable/IMG_1761"
+        android:drawableBottom="@drawable/img_1761"
         android:onClick="ChatStart"/>
 
     <Button
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="330dp"
         android:layout_marginTop="300dp"
-        android:drawableBottom="@drawable/IMG_1762"
+        android:drawableBottom="@drawable/img_1762"
         android:onClick="MainStart" />
 
 </RelativeLayout>

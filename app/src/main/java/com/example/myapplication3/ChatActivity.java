@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import android.os.AsyncTask;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -19,7 +20,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private static String TAG = "ChatLog";
 
-    private static String host = "https://samsungmarina-asigmsavti2dh3u.search.windows.net";
+    private static String host = "https://samsung-marina.azurewebsites.net";
 
     private static String endPoint = "0b5123b6-9deb-42d2-83df-ca41e46b6b55";
 
@@ -38,7 +39,7 @@ public class ChatActivity extends AppCompatActivity {
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Content-Length", content.length() + "");
+      //  connection.setRequestProperty("Content-Length", content.length() + "");
         connection.setRequestProperty("Authorization", "EndpointKey " + endPoint);
         connection.setDoOutput(true);
         Log.w(TAG, "connection is ready");
@@ -79,9 +80,9 @@ public class ChatActivity extends AppCompatActivity {
         String question = "{ 'question' : '" + questionEditText.getText().toString() + "', 'top' : 3 }";
 
         try {
-            answerTextView.setText(GetAnswers(question));
-            questionEditText.setText("");
+            new RequestTask().execute(question);
         } catch (Exception e) {
+            questionEditText.setText("g"+e.toString());
         }
     }
 
@@ -90,5 +91,27 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), RightLeftActivity.class);
         startActivity(intent);
         finish();
+    }
+    public class RequestTask extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            Log.w(TAG, "sendQuestion clicked");
+            try {
+                return GetAnswers(params[0]);
+            } catch (Exception e) {
+                Log.i("MyTag","HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"+e.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String res) {
+            TextView answerTextView = findViewById(R.id.chat_answer);
+            answerTextView.setText(res);
+            super.onPostExecute(res);
+
+        }
     }
 }
