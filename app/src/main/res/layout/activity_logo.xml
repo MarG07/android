@@ -12,7 +12,8 @@
         android:scaleType="matrix"
         android:src="@drawable/logo"
         tools:ignore="ContentDescription"
-        android:paddingTop="270dp"
+        android:paddingTop="250dp"
+        android:foregroundGravity="center"
         android:paddingLeft="20dp"/>
 
 </RelativeLayout>

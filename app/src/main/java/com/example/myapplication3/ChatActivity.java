@@ -61,8 +61,14 @@ public class ChatActivity extends AppCompatActivity {
         }
         in.close();
 
-        Log.w(TAG, response.toString());
-        return response.toString();
+
+        //полное убожество
+        String answer = response.substring(response.indexOf("answer") + 7, response.indexOf("score"));
+        answer = answer.substring(answer.indexOf("answer") + 9);
+        answer = answer.split(",")[0];
+        answer = answer.substring(0, answer.length() - 1);
+        Log.w(TAG, answer);
+        return answer;
     }
 
     public static String GetAnswers (String question) throws Exception {
@@ -97,9 +103,11 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            Log.w(TAG, "sendQuestion clicked");
+            Log.w(TAG, "RequestTask started");
             try {
-                return GetAnswers(params[0]);
+                String ans = GetAnswers(params[0]);
+                Log.w(TAG, ans);
+                return ans;
             } catch (Exception e) {
                 Log.i("MyTag","HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"+e.toString());
             }
@@ -110,6 +118,8 @@ public class ChatActivity extends AppCompatActivity {
         protected void onPostExecute(String res) {
             TextView answerTextView = findViewById(R.id.chat_answer);
             answerTextView.setText(res);
+            EditText questionEditText = findViewById(R.id.chat_question);
+            questionEditText.setText("");
             super.onPostExecute(res);
 
         }
